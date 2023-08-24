@@ -13,3 +13,16 @@ export const sign = async (payload, expiresIn, secret) => {
     });
   });
 };
+
+export const verify = async (token, secret) => {
+  return new Promise((res, rej) => {
+    jwt.verify(token, secret, (error, payload) => {
+      if (error) {
+        logger.error(error);
+        res(null);
+      } else {
+        res(payload);
+      }
+    });
+  });
+};
