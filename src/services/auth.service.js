@@ -1,6 +1,7 @@
 import createHttpError from "http-errors";
 import validator from "validator";
 import { UserModel } from "./../models/index.js";
+import bcrypt from "bcrypt";
 
 //env varaibles
 const { DEFAULT_USER_PROFILE_IMG, DEFAULT_STATUS } = process.env;
@@ -50,5 +51,18 @@ export const createUser = async (userData) => {
     picture: picture || DEFAULT_USER_PROFILE_IMG,
     status: status || DEFAULT_STATUS,
   }).save();
+  return user;
+};
+
+export const signUser = async (email, password) => {
+  const user = await UserModel.findOne({ email: email.toLowerCase() }).lean();
+
+  //check if user exist
+  if (!user) throw createHttpError.NotFound("This user is not exist.");
+
+  //compare the password
+  let passwordMatches = await bcrypt.compare(password, user.password);
+  if (!passwordMatches)
+    throw createHttpError.NotFound("The password is incorrect");
   return user;
 };

@@ -1,5 +1,5 @@
 import logger from "./../configs/logger.config.js";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 export const sign = async (payload, expiresIn, secret) => {
   return new Promise((res, rej) => {
@@ -8,7 +8,7 @@ export const sign = async (payload, expiresIn, secret) => {
         logger.error(error);
         rej(error);
       } else {
-        resolve(token);
+        res(token);
       }
     });
   });
