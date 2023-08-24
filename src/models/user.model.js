@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import validator from "validator";
+import bcrypt from "bcrypt";
 
 const userSchema = Schema(
   {
@@ -23,7 +24,7 @@ const userSchema = Schema(
       type: String,
       default: "Whatsapp user",
     },
-    name: {
+    password: {
       type: String,
       required: [true, "Please provide your password"],
       minLength: [
@@ -41,5 +42,16 @@ const userSchema = Schema(
     timestamps: true,
   }
 );
+
+userSchema.pre("save", async function (next) {
+  try {
+    if (this.isNew) {
+      const salt = await bcrypt.genSalt(12);
+      const hashedPass = await bcrypt.hash(this.password, salt);
+      this.password = hashedPass;
+    }
+    next();
+  } catch (error) {}
+});
 const UserModel = model("UserModel", userSchema);
 export default UserModel;
