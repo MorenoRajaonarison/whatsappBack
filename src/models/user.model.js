@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 
@@ -53,5 +53,5 @@ userSchema.pre("save", async function (next) {
     next();
   } catch (error) {}
 });
-const UserModel = model("UserModel", userSchema);
+const UserModel = mongoose.models.UserModel || model("UserModel", userSchema);
 export default UserModel;
