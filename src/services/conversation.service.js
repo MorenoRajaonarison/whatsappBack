@@ -39,3 +39,23 @@ export const populateConvo = async (id, fieldToPopulate, fieldToRemove) => {
     throw createHttpError.BadRequest("Oops... Something went wrong !");
   return populatedConvo;
 };
+
+export const getConversations = async (userId) => {
+  let conversations;
+  await ConversationModel.find({ users: { $elemMatch: { $eq: userId } } })
+    .populate("users", "-password")
+    .populate("admin", "-password")
+    .populate("latestMessage")
+    .sort({ updatedAt: -1 })
+    .then(async (results) => {
+      results = await UserModel.populate(results, {
+        path: "latestMessage.sender",
+        select: "name email picture status",
+      });
+      conversations = results;
+    })
+    .catch((error) => {
+      throw createHttpError.BadRequest("Oops... Something went wrong !");
+    });
+  return conversations;
+};
