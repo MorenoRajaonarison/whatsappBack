@@ -1,5 +1,5 @@
 import createHttpError from "http-errors";
-import {MessageModel} from "../models/index.js";
+import { MessageModel } from "../models/index.js";
 
 export const createMsg = async (data) => {
   let newMsg = await MessageModel.create(data);
@@ -26,4 +26,12 @@ export const populateMsg = async (id) => {
     });
   if (!msg) throw createHttpError.BadRequest("Oops.. Something went wrong");
   return msg;
+};
+
+export const getConvoMsgs = async (convoId) => {
+  const msgs = await MessageModel.find({ conversation: convoId })
+    .populate("sender", "name picture status email")
+    .populate("conversation");
+  if (!msgs) throw createHttpError.BadRequest("Oops.. Something went wrong");
+  return msgs
 };
