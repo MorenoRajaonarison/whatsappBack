@@ -1,4 +1,5 @@
 import { ConversationModel, UserModel } from "../models/index.js";
+import createHttpError from "http-errors";
 
 export const doesConversationExist = async (senderId, receiverId) => {
   let convos = await ConversationModel.find({
@@ -58,4 +59,14 @@ export const getConversations = async (userId) => {
       throw createHttpError.BadRequest("Oops... Something went wrong !");
     });
   return conversations;
+};
+
+export const updateLatestMsg = async (convoId, message) => {
+  const updatedConvo = await ConversationModel.findByIdAndUpdate(convoId, {
+    latestMessage: message,
+  });
+  if (!updatedConvo)
+    throw createHttpError.BadRequest("Oops... Something went wrong !");
+
+  return updatedConvo;
 };
