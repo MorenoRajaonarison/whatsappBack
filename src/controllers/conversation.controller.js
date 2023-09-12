@@ -50,7 +50,7 @@ export const createOrOpenConversation = async (req, res, next) => {
 
 export const getConversation = async (req, res, next) => {
   try {
-    const userId = req.userId;
+    const { userId } = req.user;
     const conversations = await getConversations(userId);
     res.status(200).json(conversations);
   } catch (error) {
