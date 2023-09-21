@@ -381,3 +381,66 @@
 {"level":"info","message":"DB connexion successfully "}
 {"level":"info","message":" Server listening at 5000 ..."}
 {"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"error","message":"Mongo error: MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017"}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"error","message":"Mongo error: MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017"}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":" Server listening at 5000 ..."}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":"Server listening at 5000"}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":"Server listening at 5000"}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":"Server listening at 5000"}
+{"level":"info","message":"DB connexion successfully "}
+{"level":"info","message":"socket io connected successfully"}
