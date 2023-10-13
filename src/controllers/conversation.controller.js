@@ -10,39 +10,51 @@ import {
 export const createOrOpenConversation = async (req, res, next) => {
   try {
     const senderId = req.user.userId;
-    const { receiverId } = req.body;
+    const { receiverId, isGroup, convoId } = req.body;
+    if (isGroup == false) {
+      // check if receiverId is provide
+      if (!receiverId) {
+        logger.error(
+          "Please provide the user id you wanna start a conversation with !"
+        );
+        throw createHttpError.BadGateway("Oops... Something went wrong !");
+      }
 
-    // check if receiverId is provide
-    if (!receiverId) {
-      logger.error(
-        "Please provide the user id you wanna start a conversation with !"
+      // check if chat exist
+      const existedConversation = await doesConversationExist(
+        senderId,
+        receiverId,
+        false
       );
-      throw createHttpError.BadGateway("Oops... Something went wrong !");
-    }
 
-    // check if chat exist
-    const existedConversation = await doesConversationExist(
-      senderId,
-      receiverId
-    );
-
-    if (existedConversation) {
-      res.json(existedConversation);
+      if (existedConversation) {
+        res.json(existedConversation);
+      } else {
+        // let receiverUser = await findUser(receiverId);
+        let convoData = {
+          name: "conversation name",
+          picture: "conversation picture",
+          isGroup: false,
+          users: [senderId, receiverId],
+        };
+        const newConvo = await createConversation(convoData);
+        const populatedConvo = await populateConvo(
+          newConvo._id,
+          "users",
+          "-password"
+        );
+        res.status(200).json(populatedConvo);
+      }
     } else {
-      // let receiverUser = await findUser(receiverId);
-      let convoData = {
-        name: "conversation name",
-        picture: "conversation picture",
-        isGroup: false,
-        users: [senderId, receiverId],
-      };
-      const newConvo = await createConversation(convoData);
-      const populatedConvo = await populateConvo(
-        newConvo._id,
-        "users",
-        "-password"
+      // this a group chat
+      // check if grp chat exist
+      const existedGrpConversation = await doesConversationExist(
+        "",
+        "",
+        isGroup,
+        convoId
       );
-      res.status(200).json(populatedConvo);
+      res.status(200).json(existedGrpConversation);
     }
   } catch (error) {
     next(error);

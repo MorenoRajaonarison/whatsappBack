@@ -1,27 +1,51 @@
 import { ConversationModel, UserModel } from "../models/index.js";
 import createHttpError from "http-errors";
 
-export const doesConversationExist = async (senderId, receiverId) => {
-  let convos = await ConversationModel.find({
-    isGroup: false,
-    $and: [
-      { users: { $elemMatch: { $eq: senderId } } },
-      { users: { $elemMatch: { $eq: receiverId } } },
-    ],
-  })
-    .populate("users", "-password")
-    .populate("latestMessage");
+export const doesConversationExist = async (
+  senderId,
+  receiverId,
+  isGroup,
+  convoId
+) => {
+  if (isGroup == false) {
+    let convos = await ConversationModel.find({
+      isGroup: false,
+      $and: [
+        { users: { $elemMatch: { $eq: senderId } } },
+        { users: { $elemMatch: { $eq: receiverId } } },
+      ],
+    })
+      .populate("users", "-password")
+      .populate("latestMessage");
 
-  if (!convos)
-    throw createHttpError.BadRequest("Oops... Something went wrong !");
+    if (!convos)
+      throw createHttpError.BadRequest("Oops... Something went wrong !");
 
-  // populate message model
+    // populate message model
 
-  convos = await UserModel.populate(convos, {
-    path: "latestMessage.sender",
-    select: "name email picture status",
-  });
-  return convos[0];
+    convos = await UserModel.populate(convos, {
+      path: "latestMessage.sender",
+      select: "name email picture status",
+    });
+    return convos[0];
+  } else {
+    // it's a grp chat
+    let convo = await ConversationModel.findOne({ _id: convoId })
+      .populate("users admin", "-password")
+      .populate("latestMessage");
+
+    if (!convo)
+      throw createHttpError.BadRequest("Oops... Something went wrong !");
+
+    // // populate message model
+
+    // convo = await UserModel.populate(convo, {
+    //   path: "latestMessage.sender",
+    //   select: "name email picture status",
+    // });
+    console.log({ convo });
+    return convo;
+  }
 };
 
 export const createConversation = async (data) => {
