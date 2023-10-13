@@ -1,3 +1,5 @@
 {"level":"error","message":"Please provide a conversation id and a message body"}
 {"level":"error","message":"Mongo error: MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017"}
 {"level":"error","message":"Mongo error: MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017"}
+{"level":"error","message":"Mongo error: MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017"}
+{"level":"error","message":"Mongo error: MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017"}

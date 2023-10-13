@@ -4,8 +4,8 @@ import {
   createConversation,
   doesConversationExist,
   getConversations,
+  populateConvo,
 } from "../services/conversation.service.js";
-import { findUser } from "../services/user.service.js";
 
 export const createOrOpenConversation = async (req, res, next) => {
   try {
@@ -54,6 +54,38 @@ export const getConversation = async (req, res, next) => {
     const { userId } = req.user;
     const conversations = await getConversations(userId);
     res.status(200).json(conversations);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createGrp = async (req, res, next) => {
+  const { name, users } = req.body;
+  users.push(req.user.userId);
+  if (!name || !users) {
+    throw createHttpError.BadRequest("Please fill all fields");
+  }
+  if (users.length < 2) {
+    throw createHttpError.BadRequest(
+      "Atleast 2 users are required to start a group chat"
+    );
+  }
+  let convoData = {
+    name,
+    users,
+    isGroup: true,
+    admin: req.user.userId,
+    picture: process.env.DEFAULT_GRP_PROFILE_IMG,
+  };
+  try {
+    const newConvo = await createConversation(convoData);
+    const populatedConvo = await populateConvo(
+      newConvo._id,
+      "users admin",
+      "-password"
+    );
+    console.log(populatedConvo);
+    res.status(200).json(populatedConvo);
   } catch (error) {
     next(error);
   }
